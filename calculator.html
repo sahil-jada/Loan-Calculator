@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Loan Calculator</title>
+</head>
+<body>
+  <img src="richfield_logo.PNG" alt="">
+  <form name="formcalc">
+    <table>
+      <tr>
+        <td><b>Enter Loan Information:</b></td>
+      </tr>
+      <tr>
+        <td align="left">1)Amount of the Loan(ZAR):</td>
+        <td><input type="text" name="amtloan"></td>
+      </tr>      
+
+      <tr>
+        <td align="left">2)Annual percentage rate of interest:</td>
+        <td><input type="text" name="intrate"></td>
+      </tr>
+
+      <tr>
+        <td align="left">3)Repayment period in years:</td>
+        <td><input type="text" name="numyears"></td>
+      </tr>
+
+      <tr>
+        <td><input type="button" value="Calculate" onclick="calValues()"></td>
+      </tr>
+
+      <tr>
+        <td><b>Loan Repayment Information:</b></td>
+      </tr>
+
+      <tr>
+        <td>4)Your monthly payment will be:</td>
+        <td><input type="text" name="monrepay"></td>
+      </tr>
+
+      <tr>
+        <td>5)Your total payment will be:</td>
+        <td><input type="text" name="totalpay"></td>
+      </tr>
+
+      <tr>
+        <td>6)Your total interest payment will be:</td>
+        <td><input type="text" name="intpay"></td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+
+    function calValues(){
+      
+      let amount, rate, years;        
+      const n = 12      
+      let monthlyRepayment, totalPayment, totalInterest;
+      
+      
+      amount = Number(document.formcalc.amtloan.value);
+      rate = Number(document.formcalc.intrate.value);
+      years = Number(document.formcalc.numyears.value);
+
+      monthlyRepayment = (amount*((rate/100)/n))/(1-(1+((rate/100)/n))**((-n)*(years)))
+
+      monthlyRepayment = monthlyRepayment.toFixed(2) // Round to 2 Decimals 
+      document.formcalc.monrepay.value=monthlyRepayment;
+
+
+      totalPayment = amount*(1+(rate/100))**years
+      totalPayment = totalPayment.toFixed(2)
+      document.formcalc.totalpay.value=totalPayment
+
+      totalInterest = (monthlyRepayment * 12 * years) - amount
+      totalInterest = totalInterest.toFixed(2)
+      document.formcalc.intpay.value=totalInterest
+
+    }
+ 
+  </script>
+</body>
+</html>
